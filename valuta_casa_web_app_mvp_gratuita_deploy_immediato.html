@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ValutaCasa – stima gratuita immediata</title>
+  <meta name="description" content="Calcola il valore del tuo immobile in pochi minuti. Stima gratuita, report e perizia professionale.">
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {color-scheme: light dark}
+    html {font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji','Segoe UI Emoji';}
+    .glass {backdrop-filter: blur(10px); background: rgba(255,255,255,0.6);} 
+    .card {box-shadow: 0 10px 25px rgba(0,0,0,.08)}
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-20 bg-white/80 glass border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-2xl bg-slate-900"></div>
+        <span class="font-extrabold tracking-tight">ValutaCasa</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#calcolatore" class="hover:text-slate-900 font-medium">Calcolatore</a>
+        <a href="#pacchetti" class="hover:text-slate-900 font-medium">Pacchetti</a>
+        <a href="#faq" class="hover:text-slate-900 font-medium">FAQ</a>
+      </nav>
+      <a href="#calcolatore" class="px-3 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold">Stima gratuita</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="bg-gradient-to-b from-white to-slate-50">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center px-4 pt-12 pb-8">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">Scopri quanto vale la tua casa <span class="text-slate-500">in 2 minuti</span></h1>
+        <p class="mt-4 text-slate-600 text-lg">Stima gratuita immediata. Se vuoi, passa al report o alla perizia professionale senza contatti con agenzie.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#calcolatore" class="px-5 py-3 rounded-2xl bg-slate-900 text-white font-semibold">Inizia ora gratis</a>
+          <a href="#pacchetti" class="px-5 py-3 rounded-2xl border border-slate-300 font-semibold">Vedi pacchetti</a>
+        </div>
+        <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
+          <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-green-500"></span> Nessun vincolo</div>
+          <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-green-500"></span> Privacy garantita</div>
+          <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-green-500"></span> Risultato immediato</div>
+        </div>
+      </div>
+      <div class="card rounded-3xl bg-white p-6 border border-slate-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-xs uppercase text-slate-500">Esempio di stima</div>
+            <div class="text-2xl font-extrabold">€ 228.000 – € 246.000</div>
+          </div>
+          <div class="text-right text-xs text-slate-500">Agg. ora</div>
+        </div>
+        <div class="mt-4 h-32 rounded-2xl bg-gradient-to-r from-slate-100 to-slate-200"></div>
+        <ul class="mt-4 grid grid-cols-2 gap-3 text-sm">
+          <li class="p-3 rounded-xl bg-slate-50 border border-slate-200">80 mq • Buono stato</li>
+          <li class="p-3 rounded-xl bg-slate-50 border border-slate-200">Piano 2 • Ascensore</li>
+          <li class="p-3 rounded-xl bg-slate-50 border border-slate-200">Balcone • Cantina</li>
+          <li class="p-3 rounded-xl bg-slate-50 border border-slate-200">Zona: Torino</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCOLATORE -->
+  <section id="calcolatore" class="py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold">Calcolatore gratuito</h2>
+      <p class="text-slate-600 mt-2">Inserisci i dati principali. Ottieni subito una stima con range. Potrai scaricare un report o richiedere la perizia.</p>
+
+      <div class="mt-6 grid md:grid-cols-3 gap-6">
+        <form id="valuationForm" class="md:col-span-2 card rounded-3xl bg-white p-6 border border-slate-200">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-slate-700">Comune/Zona</label>
+              <select id="city" class="mt-1 w-full rounded-xl border border-slate-300 p-3">
+                <option value="">Seleziona…</option>
+                <option value="torino">Torino</option>
+                <option value="casalborgone">Casalborgone</option>
+                <option value="monferrato">Monferrato</option>
+                <option value="altra">Altro (inserisci €/mq)</option>
+              </select>
+            </div>
+            <div id="customPriceWrap" class="hidden">
+              <label class="text-sm text-slate-700">Valore medio €/mq (manuale)</label>
+              <input id="customPrice" type="number" min="200" step="50" class="mt-1 w-full rounded-xl border border-slate-300 p-3" placeholder="es. 1.500" />
+            </div>
+            <div>
+              <label class="text-sm text-slate-700">Superficie (mq)</label>
+              <input id="sqm" type="number" min="10" step="1" class="mt-1 w-full rounded-xl border border-slate-300 p-3" placeholder="es. 80" required />
+            </div>
+            <div>
+              <label class="text-sm text-slate-700">Stato immobile</label>
+              <select id="condition" class="mt-1 w-full rounded-xl border border-slate-300 p-3">
+                <option value="buono">Buono</option>
+                <option value="nuovo">Nuovo/ristrutturato</option>
+                <option value="mediocre">Da ristrutturare</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm text-slate-700">Piano</label>
+              <select id="floor" class="mt-1 w-full rounded-xl border border-slate-300 p-3">
+                <option value="terra">Terra</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3+">3+</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm text-slate-700">Ascensore</label>
+              <select id="elevator" class="mt-1 w-full rounded-xl border border-slate-300 p-3">
+                <option value="si">Sì</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm text-slate-700">Pertinenze</label>
+              <div class="mt-2 grid grid-cols-2 gap-2 text-sm">
+                <label class="flex items-center gap-2"><input type="checkbox" id="balcony"> Balcone/Terrazzo</label>
+                <label class="flex items-center gap-2"><input type="checkbox" id="parking"> Box/Posto auto</label>
+                <label class="flex items-center gap-2"><input type="checkbox" id="cellar"> Cantina/Solaio</label>
+                <label class="flex items-center gap-2"><input type="checkbox" id="garden"> Giardino</label>
+              </div>
+            </div>
+            <div>
+              <label class="text-sm text-slate-700">Anno di costruzione (facoltativo)</label>
+              <input id="year" type="number" min="1900" max="2025" class="mt-1 w-full rounded-xl border border-slate-300 p-3" placeholder="es. 1985" />
+            </div>
+            <div class="md:col-span-2 flex flex-wrap items-center justify-between gap-3 pt-2">
+              <div class="text-xs text-slate-500">* Stima orientativa non sostituisce la perizia.</div>
+              <button type="submit" class="px-5 py-3 rounded-2xl bg-slate-900 text-white font-semibold">Calcola valore</button>
+            </div>
+          </div>
+        </form>
+
+        <aside class="card rounded-3xl bg-white p-6 border border-slate-200 h-max">
+          <div class="text-sm uppercase text-slate-500">Risultato</div>
+          <div id="result" class="mt-2 text-3xl font-extrabold">—</div>
+          <div id="range" class="mt-1 text-slate-500">Inserisci i dati per ottenere la stima.</div>
+          <hr class="my-4" />
+          <div class="text-sm text-slate-600">Vuoi il <strong>report PDF</strong> con comparabili e mappa valori? Oppure una <strong>perizia firmata</strong> valida per banca/tribunale?</div>
+          <div class="mt-3 grid grid-cols-1 gap-2">
+            <button onclick="openModal('smart')" class="w-full px-4 py-3 rounded-xl border border-slate-300 font-semibold hover:bg-slate-50">Report Smart</button>
+            <button onclick="openModal('premium')" class="w-full px-4 py-3 rounded-xl border border-slate-300 font-semibold hover:bg-slate-50">Report Premium</button>
+            <button onclick="openModal('perizia')" class="w-full px-4 py-3 rounded-xl bg-slate-900 text-white font-semibold">Perizia ufficiale</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACCHETTI -->
+  <section id="pacchetti" class="py-12 bg-white border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold">Pacchetti</h2>
+      <p class="text-slate-600 mt-2">Parti gratis. Passa a report o perizia quando vuoi.</p>
+
+      <div class="mt-6 grid md:grid-cols-3 gap-6">
+        <div class="card rounded-3xl p-6 border border-slate-200">
+          <div class="text-sm uppercase text-slate-500">Base</div>
+          <div class="mt-1 text-3xl font-extrabold">Gratis</div>
+          <ul class="mt-4 space-y-2 text-slate-600 text-sm">
+            <li>• Stima immediata</li>
+            <li>• Range di mercato</li>
+            <li>• Nessun vincolo</li>
+          </ul>
+          <button onclick="scrollToCalc()" class="mt-6 w-full px-4 py-3 rounded-xl bg-slate-900 text-white font-semibold">Calcola ora</button>
+        </div>
+
+        <div class="card rounded-3xl p-6 border border-slate-200 ring-1 ring-slate-900/10">
+          <div class="text-sm uppercase text-slate-500">Report Smart</div>
+          <div class="mt-1 text-3xl font-extrabold">€ 39</div>
+          <ul class="mt-4 space-y-2 text-slate-600 text-sm">
+            <li>• PDF con comparabili</li>
+            <li>• Mappa valori €/mq</li>
+            <li>• Consegna 24h</li>
+          </ul>
+          <button onclick="openModal('smart')" class="mt-6 w-full px-4 py-3 rounded-xl border border-slate-300 font-semibold hover:bg-slate-50">Acquista</button>
+        </div>
+
+        <div class="card rounded-3xl p-6 border border-slate-200">
+          <div class="text-sm uppercase text-slate-500">Perizia Ufficiale</div>
+          <div class="mt-1 text-3xl font-extrabold">da € 290</div>
+          <ul class="mt-4 space-y-2 text-slate-600 text-sm">
+            <li>• Firmata da perito</li>
+            <li>• Valida per banca/CTU</li>
+            <li>• Consegna 3–5 gg</li>
+          </ul>
+          <button onclick="openModal('perizia')" class="mt-6 w-full px-4 py-3 rounded-xl bg-slate-900 text-white font-semibold">Richiedi</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold">Domande frequenti</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-6 text-slate-700">
+        <div class="card rounded-3xl p-6 border border-slate-200">
+          <h3 class="font-bold">La stima è affidabile?</h3>
+          <p class="mt-2 text-slate-600">È un calcolo orientativo basato su €/mq di zona e correttivi oggettivi (stato, piano, pertinenze). Per decisioni ufficiali consigliamo il report o la perizia.</p>
+        </div>
+        <div class="card rounded-3xl p-6 border border-slate-200">
+          <h3 class="font-bold">Posso usarla gratis?</h3>
+          <p class="mt-2 text-slate-600">Sì. La stima base è gratuita e immediata. I pacchetti avanzati sono opzionali.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODALE LEAD / CHECKOUT PLACEHOLDER -->
+  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/40 p-4">
+    <div class="w-full max-w-lg card rounded-3xl bg-white p-6 border border-slate-200 relative">
+      <button onclick="closeModal()" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600">✕</button>
+      <h3 id="modalTitle" class="text-xl font-extrabold">Report Smart</h3>
+      <p id="modalDesc" class="mt-1 text-slate-600 text-sm">Compila i dati, ti contattiamo per completare il pagamento e consegnare il PDF.</p>
+
+      <form id="leadForm" class="mt-4 grid gap-3">
+        <input id="leadName" class="rounded-xl border border-slate-300 p-3" placeholder="Nome e cognome" required>
+        <input id="leadEmail" type="email" class="rounded-xl border border-slate-300 p-3" placeholder="Email" required>
+        <input id="leadPhone" class="rounded-xl border border-slate-300 p-3" placeholder="Telefono (opzionale)">
+        <textarea id="leadNotes" class="rounded-xl border border-slate-300 p-3" placeholder="Note (indirizzo immobile, metri quadri, urgenza)"></textarea>
+        <button class="mt-1 px-5 py-3 rounded-2xl bg-slate-900 text-white font-semibold">Invia richiesta</button>
+        <p id="leadOk" class="hidden text-green-700 text-sm">Richiesta inviata. Ti contatteremo a breve.</p>
+      </form>
+      <p class="mt-3 text-xs text-slate-500">Procedendo accetti la nostra <a class="underline" href="#">Privacy Policy</a>.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="py-10 border-t border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6 text-sm">
+      <div>
+        <div class="font-extrabold">ValutaCasa</div>
+        <p class="mt-2 text-slate-600">Stima gratuita. Report e perizie professionali su richiesta.</p>
+      </div>
+      <div>
+        <div class="font-bold">Link</div>
+        <ul class="mt-2 space-y-2 text-slate-600">
+          <li><a href="#calcolatore" class="hover:text-slate-900">Calcolatore</a></li>
+          <li><a href="#pacchetti" class="hover:text-slate-900">Pacchetti</a></li>
+          <li><a href="#faq" class="hover:text-slate-900">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold">Contatti</div>
+        <ul class="mt-2 space-y-2 text-slate-600">
+          <li>Email: info@esempio.it</li>
+          <li>P.IVA / S.r.l. (placeholder)</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Valori medi €/mq (selezione rapida). Personalizzali.
+    const BASE_PRICES = {
+      torino: 2200,
+      casalborgone: 1100,
+      monferrato: 1300
+    }
+
+    const citySel = document.getElementById('city');
+    const customWrap = document.getElementById('customPriceWrap');
+    const customPrice = document.getElementById('customPrice');
+
+    citySel.addEventListener('change', () => {
+      if (citySel.value === 'altra') {
+        customWrap.classList.remove('hidden');
+      } else {
+        customWrap.classList.add('hidden');
+      }
+    });
+
+    function roundEuro(n){
+      return Math.round(n/100)*100; // arrotonda a 100€
+    }
+
+    function computeValuation() {
+      const sqm = parseFloat(document.getElementById('sqm').value || '0');
+      const condition = document.getElementById('condition').value;
+      const floor = document.getElementById('floor').value;
+      const elevator = document.getElementById('elevator').value;
+      const balcony = document.getElementById('balcony').checked;
+      const parking = document.getElementById('parking').checked;
+      const cellar = document.getElementById('cellar').checked;
+      const garden = document.getElementById('garden').checked;
+      const year = parseInt(document.getElementById('year').value || '0', 10);
+
+      // Base €/mq
+      let base;
+      if (citySel.value === 'altra') {
+        base = parseFloat(customPrice.value || '0');
+      } else {
+        base = BASE_PRICES[citySel.value] || 0;
+      }
+
+      if (!sqm || !base) return {total: 0, low: 0, high: 0};
+
+      // Coefficienti semplici (MVP):
+      let coeff = 1.0;
+      if (condition === 'nuovo') coeff *= 1.10;       // +10%
+      if (condition === 'mediocre') coeff *= 0.88;    // -12%
+
+      if (floor === 'terra') coeff *= 0.96;
+      if (floor === '2') coeff *= 1.02;
+      if (floor === '3+') coeff *= 1.04;
+
+      if (elevator === 'no' && (floor === '2' || floor === '3+')) coeff *= 0.95;
+
+      // Pertinenze
+      if (balcony) coeff *= 1.02;
+      if (parking) coeff *= 1.03;
+      if (cellar) coeff *= 1.01;
+      if (garden) coeff *= 1.04;
+
+      // Vetustà (correttivo leggero)
+      if (year >= 1900) {
+        const age = Math.max(0, 2025 - year);
+        const agePenalty = Math.min(0.10, age * 0.002); // max -10%
+        coeff *= (1 - agePenalty);
+      }
+
+      const priceMq = base * coeff;
+      const total = priceMq * sqm;
+      const low = total * 0.93; // range -7%
+      const high = total * 1.07; // range +7%
+
+      return {total: roundEuro(total), low: roundEuro(low), high: roundEuro(high), priceMq: Math.round(priceMq)};
+    }
+
+    const form = document.getElementById('valuationForm');
+    const resultEl = document.getElementById('result');
+    const rangeEl = document.getElementById('range');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const r = computeValuation();
+      if (!r.total) {
+        resultEl.textContent = '—';
+        rangeEl.textContent = 'Compila tutti i campi richiesti (zona e mq).';
+        return;
+      }
+      resultEl.textContent = `€ ${r.total.toLocaleString('it-IT')}`;
+      rangeEl.textContent = `Range: € ${r.low.toLocaleString('it-IT')} – € ${r.high.toLocaleString('it-IT')} • Prezzo stimato €/mq: € ${r.priceMq.toLocaleString('it-IT')}`;
+      window.scrollTo({ top: document.querySelector('#calcolatore').offsetTop - 20, behavior: 'smooth'});
+    });
+
+    // Modal (lead)
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
+    function openModal(type){
+      const labels = {
+        smart: {title: 'Report Smart', desc: 'PDF con comparabili e mappa valori. Consegna in 24h.'},
+        premium: {title: 'Report Premium', desc: 'Analisi approfondita con foto e correzioni puntuali. Consegna in 48h.'},
+        perizia: {title: 'Perizia ufficiale', desc: 'Perizia estimativa firmata da perito/CTU, valida per banca/tribunale.'}
+      }
+      const l = labels[type] || labels.smart;
+      modalTitle.textContent = l.title;
+      modalDesc.textContent = l.desc;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    window.openModal = openModal;
+    function closeModal(){modal.classList.add('hidden'); modal.classList.remove('flex');}
+    window.closeModal = closeModal;
+
+    // Lead form mock -> qui puoi integrare un webhook (Zapier, Make) o Supabase/Sheet
+    const leadForm = document.getElementById('leadForm');
+    const leadOk = document.getElementById('leadOk');
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('leadName').value,
+        email: document.getElementById('leadEmail').value,
+        phone: document.getElementById('leadPhone').value,
+        notes: document.getElementById('leadNotes').value,
+        ts: new Date().toISOString()
+      }
+      try {
+        // ESEMPIO: invio verso Google Apps Script Web App o webhook
+        // await fetch('https://script.google.com/macros/s/ID/exec', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+        console.log('Lead payload', payload);
+        leadOk.classList.remove('hidden');
+        leadForm.reset();
+      } catch (err) {
+        alert('Errore invio. Riprova.');
+      }
+    });
+
+    function scrollToCalc(){
+      document.getElementById('calcolatore').scrollIntoView({behavior:'smooth'});
+    }
+    window.scrollToCalc = scrollToCalc;
+  </script>
+</body>
+</html>
